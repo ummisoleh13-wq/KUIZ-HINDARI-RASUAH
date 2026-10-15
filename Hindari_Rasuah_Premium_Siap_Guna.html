@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#0f766e">
+<title>Hindari Rasuah — Kuiz Interaktif Pendidikan Islam</title>
+<style>
+:root{
+  --primary:#0f766e; --primary2:#14b8a6; --gold:#f59e0b;
+  --bg:#f0fdfa; --text:#17323a; --muted:#64748b; --card:#ffffff;
+  --danger:#dc2626; --success:#16a34a; --shadow:0 12px 35px rgba(15,118,110,.12);
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+ color:var(--text);background:linear-gradient(135deg,#ecfeff,#f0fdfa 45%,#fffbeb);
+ min-height:100vh}
+.container{width:min(940px,92%);margin:auto}
+header{padding:22px 0;text-align:center}
+.brand{display:inline-flex;align-items:center;gap:10px;font-weight:800;color:var(--primary);font-size:1.05rem}
+.logo{width:42px;height:42px;border-radius:14px;background:linear-gradient(135deg,var(--primary),var(--primary2));
+ display:grid;place-items:center;color:#fff;font-size:22px;box-shadow:var(--shadow)}
+.card{background:rgba(255,255,255,.96);border:1px solid rgba(15,118,110,.10);
+ border-radius:28px;padding:28px;box-shadow:var(--shadow);margin:18px 0}
+h1{font-size:clamp(2rem,6vw,3.5rem);line-height:1.05;margin:12px 0 10px}
+h2{margin-top:0;font-size:clamp(1.45rem,4vw,2rem)}
+.subtitle{color:var(--muted);line-height:1.65}
+.badge{display:inline-block;padding:7px 12px;border-radius:999px;background:#ccfbf1;color:#115e59;font-weight:700;font-size:.85rem}
+label{display:block;font-weight:700;margin:16px 0 7px}
+input{width:100%;padding:15px 16px;border:2px solid #dbe7e8;border-radius:15px;font-size:1rem;outline:none}
+input:focus{border-color:var(--primary2);box-shadow:0 0 0 4px #ccfbf1}
+button{border:0;border-radius:15px;padding:14px 20px;font-size:1rem;font-weight:800;cursor:pointer;transition:.18s}
+button:hover{transform:translateY(-1px)}
+.primary{background:linear-gradient(135deg,var(--primary),var(--primary2));color:#fff;box-shadow:0 8px 20px rgba(15,118,110,.20)}
+.secondary{background:#e2e8f0;color:#1e293b}
+.gold{background:linear-gradient(135deg,#f59e0b,#fbbf24);color:#fff}
+.danger{background:#fee2e2;color:#991b1b}
+.center{text-align:center}
+.hidden{display:none!important}
+.progress-wrap{height:10px;background:#e2e8f0;border-radius:99px;overflow:hidden;margin:16px 0 22px}
+.progress{height:100%;background:linear-gradient(90deg,var(--primary),var(--primary2));width:0;transition:.3s}
+.topbar{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+.timer{font-weight:900;color:#b45309;background:#fef3c7;padding:9px 13px;border-radius:12px}
+.qmeta{color:var(--muted);font-weight:700}
+.question{font-size:clamp(1.25rem,3.5vw,1.7rem);font-weight:850;line-height:1.4;margin:20px 0}
+.options{display:grid;gap:12px}
+.option{width:100%;text-align:left;background:#f8fafc;border:2px solid #e2e8f0;color:var(--text)}
+.option:hover{border-color:#5eead4;background:#f0fdfa}
+.option.correct{background:#dcfce7;border-color:#22c55e;color:#166534}
+.option.wrong{background:#fee2e2;border-color:#ef4444;color:#991b1b}
+.feedback{min-height:50px;margin-top:16px;padding:13px 15px;border-radius:14px;font-weight:800}
+.feedback.correct{background:#dcfce7;color:#166534}.feedback.wrong{background:#fee2e2;color:#991b1b}
+.fact{background:#f8fafc;border-left:4px solid var(--gold);padding:13px 15px;border-radius:10px;margin-top:14px;line-height:1.6}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.stat{background:#f8fafc;padding:17px;border-radius:18px;text-align:center}
+.stat strong{display:block;font-size:1.7rem;color:var(--primary)}
+.list{padding-left:20px;line-height:1.8}
+.certificate{background:#fff;border:10px double #0f766e;padding:35px;text-align:center;border-radius:8px;position:relative}
+.certificate:before{content:"✦  ✦  ✦";color:#f59e0b;letter-spacing:14px;font-size:20px}
+.cert-title{font-size:2.2rem;font-weight:900;color:#0f766e;margin:12px 0}
+.cert-name{font-size:2rem;font-weight:900;margin:18px 0 5px}
+.cert-sub{color:#475569}
+.share{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:18px}
+footer{text-align:center;color:#64748b;padding:20px;font-size:.88rem}
+@media(max-width:650px){.card{padding:20px;border-radius:22px}.grid{grid-template-columns:1fr}.certificate{padding:22px 14px}.cert-name{font-size:1.55rem}}
+@media print{
+ body{background:#fff}.no-print,header,footer{display:none!important}
+ .card{box-shadow:none;border:0;margin:0;padding:0}
+ #certificateCard{display:block!important}
+ .certificate{min-height:90vh;display:flex;flex-direction:column;justify-content:center}
+}
+</style>
+</head>
+<body>
+<header class="no-print">
+  <div class="container">
+    <div class="brand"><div class="logo">✓</div> Pendidikan Islam • Kuiz Interaktif</div>
+<button class="secondary no-print" style="margin-top:12px" onclick="document.getElementById('publishHelp').classList.remove('hidden')">🌐 Cara Terbitkan & Kongsi</button>
+  </div>
+</header>
+
+<main class="container">
+<section id="start" class="card">
+  <div class="center">
+    <span class="badge">20 SOALAN • 100 SAAT</span>
+    <h1>Hindari Rasuah</h1>
+    <p class="subtitle">Uji kefahaman tentang maksud rasuah, hadis larangan rasuah, pengajaran hadis, sebab berlaku rasuah serta kesannya kepada individu, masyarakat dan negara.</p>
+  </div>
+  <label for="schoolName">Nama Sekolah</label>
+<input id="schoolName" type="text" placeholder="Contoh: SK Taman Mutiara Rini">
+<label for="studentName">Nama Murid</label>
+  <input id="studentName" type="text" placeholder="Contoh: Ahmad bin Ali" autocomplete="name">
+  <label for="studentClass">Kelas</label>
+  <input id="studentClass" type="text" placeholder="Contoh: 6 Diamond">
+  <div style="margin-top:22px;text-align:center">
+    <button class="primary" onclick="startGame()">Mulakan permainan ▶</button>
+  </div>
+</section>
+
+<section id="guide" class="card hidden">
+  <span class="badge">PANDUAN / KEFAHAMAN</span>
+  <h2>Kenali Rasuah</h2>
+  <ul class="list">
+    <li><b>Maksud rasuah:</b> pemberian atau penerimaan sesuatu suapan untuk mempengaruhi sesuatu keputusan atau tindakan secara tidak wajar.</li>
+    <li><b>Larangan:</b> Islam melarang perbuatan rasuah kerana ia membawa kezaliman, ketidakadilan dan merosakkan amanah.</li>
+    <li><b>Pengajaran hadis:</b> jauhi rasuah, amanah dalam tugas, berlaku adil dan berani menolak pemberian yang haram.</li>
+    <li><b>Sebab berlaku:</b> tamak, mengejar keuntungan, kurang penghayatan agama, penyalahgunaan kuasa dan kelemahan integriti.</li>
+    <li><b>Kesan:</b> maruah individu tercemar, masyarakat hilang kepercayaan dan negara mengalami ketidakadilan serta kerugian.</li>
+  </ul>
+  <div class="fact"><b>Tip:</b> Baca setiap soalan dengan teliti. Selepas memilih jawapan, maklum balas akan dipaparkan dan sistem bergerak ke soalan berikutnya secara automatik.</div>
+  <div class="center" style="margin-top:22px"><button class="primary" onclick="beginQuiz()">Saya sudah faham. Jom Main! ✅</button></div>
+</section>
+
+<section id="quiz" class="card hidden">
+  <div class="topbar">
+    <div class="qmeta" id="qNumber">Soalan 1 / 20</div>
+    <div class="timer">⏱ <span id="timer">100</span>s</div>
+  </div>
+  <div class="progress-wrap"><div class="progress" id="progress"></div></div>
+  <div id="level" class="badge">Aras Mudah</div>
+  <div class="question" id="question"></div>
+  <div class="options" id="options"></div>
+  <div id="feedback" class="hidden"></div>
+</section>
+
+<section id="result" class="card hidden">
+  <div id="certificateCard" class="hidden">
+    <div class="certificate">
+      <div class="cert-title">SIJIL PENGHARGAAN</div>
+      <p>Diberikan kepada</p>
+      <div class="cert-name" id="certName"></div>
+      <p class="cert-sub">Kelas <span id="certClass"></span></p>
+      <h2 style="color:#0f766e">Tahniah! Anda Murid Cemerlang 🏆</h2>
+      <p>Telah berjaya memperoleh markah <b><span id="certScore"></span>/20</b> dalam Kuiz Interaktif <b>“Hindari Rasuah”</b>.</p>
+      <p style="margin-top:12px;font-weight:800;color:#0f766e" id="certSchool"></p>
+<p style="margin-top:30px;color:#64748b">Pendidikan Islam • 2026</p>
+<div id="qrBox" class="no-print" style="margin:18px auto 0;padding:10px;border:1px dashed #94a3b8;border-radius:14px;max-width:220px">
+<div style="font-weight:800;font-size:.85rem;margin-bottom:7px">QR Pautan Kuiz</div><canvas id="qrCanvas" width="170" height="170"></canvas>
+</div>
+    </div>
+    <div class="share no-print">
+      <button class="gold" onclick="window.print()">🖨️ Muat Turun / Cetak Sijil</button>
+      <button class="primary" onclick="shareWhatsApp()">WhatsApp</button>
+      <button class="primary" onclick="shareTelegram()">Telegram</button>
+    </div>
+  </div>
+
+  <div id="analysisCard" class="hidden">
+    <div class="center">
+      <span class="badge">ANALISIS JAWAPAN</span>
+      <h2 id="resultTitle"></h2>
+    </div>
+    <div class="grid">
+      <div class="stat"><strong id="score"></strong><span>Markah</span></div>
+      <div class="stat"><strong id="correctCount"></strong><span>Betul</span></div>
+      <div class="stat"><strong id="wrongCount"></strong><span>Salah</span></div>
+    </div>
+    <div id="analysisText" class="fact" style="margin-top:18px"></div>
+    <div class="center no-print" style="margin-top:22px"><button class="primary" onclick="location.reload()">MAIN LAGI 🔄</button></div>
+  </div>
+</section>
+
+<section id="publishHelp" class="card hidden no-print">
+  <span class="badge">PANDUAN KONGSI</span>
+  <h2>Jadikan Kuiz Ini Pautan Online</h2>
+  <p class="subtitle">Fail HTML ini sudah siap. Untuk mendapatkan satu pautan yang boleh diklik oleh semua murid, fail perlu diterbitkan pada hosting web. Selepas diterbitkan, gunakan URL tersebut untuk butang WhatsApp, Telegram dan QR Code.</p>
+  <ol class="list">
+    <li>Letakkan fail <b>Hindari_Rasuah_Kuiz_Interaktif.html</b> pada hosting web yang menyokong fail HTML statik.</li>
+    <li>Salin URL awam yang diberikan oleh hosting.</li>
+    <li>Hantar URL tersebut kepada murid melalui WhatsApp/Telegram atau tukarkan URL kepada QR Code.</li>
+  </ol>
+  <button class="secondary" onclick="document.getElementById('publishHelp').classList.add('hidden')">Tutup</button>
+</section>
+</main>
+
+<footer>Kuiz “Hindari Rasuah” • Direka untuk pembelajaran Pendidikan Islam</footer>
+
+<script>
+const questions = [
+ {l:"Aras Mudah",q:"Apakah yang dimaksudkan dengan rasuah?",a:["Pemberian atau penerimaan suapan untuk mempengaruhi sesuatu tindakan atau keputusan secara tidak wajar.","Memberikan hadiah kepada ahli keluarga sempena hari jadi.","Membantu rakan menyiapkan kerja sekolah."],c:0,e:"Rasuah melibatkan suapan yang bertujuan mempengaruhi tindakan atau keputusan secara tidak wajar."},
+ {l:"Aras Mudah",q:"Apakah hukum perbuatan rasuah dalam Islam?",a:["Harus","Haram","Makruh"],c:1,e:"Rasuah ialah perbuatan yang dilarang oleh Islam."},
+ {l:"Aras Mudah",q:"Siapakah yang dilarang terlibat dalam perbuatan rasuah?",a:["Pemberi sahaja","Penerima sahaja","Pemberi dan penerima rasuah"],c:2,e:"Larangan rasuah merangkumi pihak yang memberi dan pihak yang menerima suapan."},
+ {l:"Aras Mudah",q:"Antara berikut, yang manakah contoh rasuah?",a:["Memberi wang kepada pegawai supaya urusan yang tidak layak diluluskan.","Menderma kepada mangsa banjir.","Membeli buku rujukan di kedai."],c:0,e:"Suapan untuk mendapatkan keistimewaan atau keputusan yang tidak wajar ialah rasuah."},
+ {l:"Aras Mudah",q:"Apakah sikap yang dapat menghindarkan seseorang daripada rasuah?",a:["Amanah","Tamak","Mementingkan diri"],c:0,e:"Sikap amanah membantu seseorang melaksanakan tanggungjawab dengan jujur."},
+ {l:"Aras Mudah",q:"Apakah kesan rasuah terhadap maruah individu?",a:["Maruah tercemar","Maruah semakin tinggi","Tiada perubahan"],c:0,e:"Perbuatan rasuah boleh menjatuhkan maruah dan merosakkan kepercayaan terhadap individu."},
+ {l:"Aras Sederhana",q:"Mengapakah rasuah boleh berlaku apabila seseorang bersikap tamak?",a:["Dia mahu memperoleh keuntungan dengan cara yang salah.","Dia mahu menjaga amanah.","Dia mahu berlaku adil."],c:0,e:"Ketamakan mendorong seseorang mengejar keuntungan tanpa menghiraukan hukum dan etika."},
+ {l:"Aras Sederhana",q:"Antara berikut, yang manakah sebab berlaku rasuah?",a:["Penghayatan agama yang kukuh","Penyalahgunaan kuasa","Sikap qanaah"],c:1,e:"Penyalahgunaan kuasa membuka ruang untuk mendapatkan faedah secara tidak sah."},
+ {l:"Aras Sederhana",q:"Apakah kesan rasuah kepada masyarakat?",a:["Masyarakat semakin percaya kepada semua pihak.","Kepercayaan masyarakat terhadap institusi boleh terhakis.","Semua urusan menjadi lebih adil."],c:1,e:"Rasuah menjejaskan kepercayaan masyarakat kerana keputusan boleh dipengaruhi oleh kepentingan tertentu."},
+ {l:"Aras Sederhana",q:"Apakah kesan rasuah kepada negara?",a:["Meningkatkan integriti negara","Membawa kerugian dan menjejaskan imej negara","Memastikan pembangunan sentiasa cekap"],c:1,e:"Rasuah boleh menyebabkan pembaziran, kerugian dan menjejaskan imej negara."},
+ {l:"Aras Sederhana",q:"Jika seseorang ditawarkan wang untuk mempercepatkan urusan secara tidak sah, apakah tindakan terbaik?",a:["Menerimanya secara senyap.","Menolak dan melaporkan tawaran tersebut melalui saluran yang betul.","Menerima jika jumlahnya sedikit."],c:1,e:"Menolak dan melaporkan tawaran rasuah ialah tindakan berintegriti."},
+ {l:"Aras Sederhana",q:"Apakah pengajaran utama daripada hadis larangan rasuah?",a:["Kita boleh menerima suapan jika tiada orang tahu.","Kita hendaklah menjauhi rasuah dan menjaga amanah.","Kita perlu mengutamakan keuntungan peribadi."],c:1,e:"Hadis menjadi panduan agar umat Islam menjauhi rasuah dan memelihara amanah."},
+ {l:"Aras Sederhana",q:"Bagaimanakah rasuah boleh menyebabkan ketidakadilan?",a:["Keputusan dibuat berdasarkan suapan, bukan hak dan kelayakan.","Semua orang mendapat layanan sama rata.","Keputusan dibuat berdasarkan undang-undang sahaja."],c:0,e:"Apabila suapan mempengaruhi keputusan, hak pihak yang sepatutnya boleh dinafikan."},
+ {l:"Aras Tinggi",q:"Seorang pegawai menerima hadiah mahal selepas membantu meluluskan permohonan yang sepatutnya dinilai secara adil. Apakah isu utama?",a:["Hadiah itu mungkin menjadi suapan yang mempengaruhi keputusan.","Hadiah itu pasti sedekah.","Hadiah itu tidak berkaitan dengan tugas."],c:0,e:"Hadiah yang berkait dengan keputusan rasmi boleh menjadi suapan dan menjejaskan integriti."},
+ {l:"Aras Tinggi",q:"Mengapakah rasuah dianggap merosakkan sistem pentadbiran?",a:["Ia menjadikan keputusan bergantung pada wang atau kepentingan tertentu.","Ia memastikan semua keputusan dibuat secara telus.","Ia meningkatkan kepercayaan rakyat."],c:0,e:"Rasuah mengganggu proses yang sepatutnya berasaskan kelayakan, peraturan dan keadilan."},
+ {l:"Aras Tinggi",q:"Apakah tindakan paling berintegriti apabila rakan mengajak anda memberi wang untuk mendapatkan layanan istimewa?",a:["Ikut supaya urusan cepat selesai.","Tolak ajakan dan jelaskan bahawa rasuah dilarang.","Berikan wang tetapi minta rakan merahsiakannya."],c:1,e:"Menolak ajakan menunjukkan keberanian mempertahankan prinsip dan integriti."},
+ {l:"Aras Tinggi",q:"Sebuah projek diberikan kepada pihak yang tidak layak kerana suapan. Apakah kesan yang paling munasabah?",a:["Kualiti projek mungkin terjejas dan negara boleh mengalami kerugian.","Projek pasti menjadi lebih berkualiti.","Tiada kesan kepada masyarakat."],c:0,e:"Pemilihan berdasarkan suapan boleh menyebabkan pihak yang tidak layak mendapat projek dan menjejaskan kepentingan awam."},
+ {l:"Aras Tinggi",q:"Antara tindakan berikut, yang paling berkesan untuk membina budaya antirasuah di sekolah ialah…",a:["Membiarkan salah laku jika melibatkan kawan.","Membudayakan amanah, ketelusan dan keberanian melaporkan salah laku.","Menganggap hadiah sebagai perkara biasa dalam semua urusan."],c:1,e:"Budaya integriti dibina melalui amalan amanah, telus dan bertanggungjawab."},
+ {l:"Aras Tinggi",q:"Mengapa kesan rasuah boleh berpanjangan walaupun hanya melibatkan satu keputusan?",a:["Satu keputusan yang tidak adil boleh menjejaskan kepercayaan, kewangan dan peluang pihak lain.","Kerana rasuah hanya memberi kesan kepada pemberi.","Kerana rasuah tidak pernah memberi kesan kepada orang lain."],c:0,e:"Kesan rasuah boleh merebak daripada satu keputusan kepada kepercayaan masyarakat, kewangan dan peluang yang terjejas."},
+ {l:"Aras Tinggi",q:"Anda melihat seseorang cuba mempengaruhi keputusan dengan memberi wang. Apakah prinsip Islam yang paling tepat untuk diamalkan?",a:["Amanah dan keadilan","Tamak dan kepentingan diri","Berdiam diri demi keuntungan"],c:0,e:"Amanah dan keadilan membantu kita menolak perbuatan rasuah serta mempertahankan hak."}
+];
+
+let idx=0, score=0, timeLeft=100, timerId=null, locked=false;
+let name="", studentClass="", schoolName="";
+
+function startGame(){
+  schoolName=document.getElementById("schoolName").value.trim();
+  name=document.getElementById("studentName").value.trim();
+  studentClass=document.getElementById("studentClass").value.trim();
+  if(!schoolName || !name || !studentClass){alert("Sila isi Nama Murid dan Kelas terlebih dahulu.");return;}
+  show("start",false); show("guide",true);
+}
+function beginQuiz(){
+  show("guide",false); show("quiz",true);
+  idx=0; score=0; timeLeft=100; locked=false;
+  renderQuestion();
+  timerId=setInterval(()=>{timeLeft--;document.getElementById("timer").textContent=timeLeft;if(timeLeft<=0){clearInterval(timerId);finish();}},1000);
+}
+function renderQuestion(){
+  locked=false;
+  const q=questions[idx];
+  document.getElementById("qNumber").textContent=`Soalan ${idx+1} / ${questions.length}`;
+  document.getElementById("level").textContent=q.l;
+  document.getElementById("question").textContent=q.q;
+  document.getElementById("progress").style.width=`${(idx/questions.length)*100}%`;
+  const wrap=document.getElementById("options"); wrap.innerHTML="";
+  document.getElementById("feedback").className="hidden";
+  q.a.forEach((text,i)=>{
+    const b=document.createElement("button");
+    b.className="option";
+    b.textContent=String.fromCharCode(65+i)+". "+text;
+    b.onclick=()=>answer(i,b);
+    wrap.appendChild(b);
+  });
+}
+function answer(choice,button){
+  if(locked)return; locked=true;
+  const q=questions[idx];
+  document.querySelectorAll(".option").forEach((b,i)=>{b.disabled=true;if(i===q.c)b.classList.add("correct")});
+  const fb=document.getElementById("feedback");
+  if(choice===q.c){score++;button.classList.add("correct");fb.className="feedback correct";fb.innerHTML="✅ Betul! "+q.e;}
+  else {button.classList.add("wrong");fb.className="feedback wrong";fb.innerHTML="❌ Salah. "+q.e;}
+  setTimeout(()=>{idx++;if(idx<questions.length)renderQuestion();else finish();},1100);
+}
+function finish(){
+  if(timerId)clearInterval(timerId);
+  show("quiz",false);show("result",true);
+  const pct=Math.round(score/questions.length*100);
+  document.getElementById("score").textContent=`${score}/20 (${pct}%)`;
+  document.getElementById("correctCount").textContent=score;
+  document.getElementById("wrongCount").textContent=20-score;
+  if(score>=16){
+    document.getElementById("certificateCard").classList.remove("hidden");
+    document.getElementById("analysisCard").classList.add("hidden");
+    document.getElementById("certName").textContent=name;
+    document.getElementById("certClass").textContent=studentClass;
+document.getElementById("certSchool").textContent=schoolName;
+makeQR(location.href);
+    document.getElementById("certScore").textContent=score;
+  }else{
+    document.getElementById("certificateCard").classList.add("hidden");
+    document.getElementById("analysisCard").classList.remove("hidden");
+    document.getElementById("resultTitle").textContent=`Keputusan ${name}`;
+    document.getElementById("analysisText").innerHTML=
+      score>=12 ? "Bagus! Anda hampir mencapai tahap cemerlang. Ulang kaji maksud rasuah, pengajaran hadis serta sebab dan kesannya, kemudian cuba lagi." :
+      "Teruskan usaha! Fokus semula pada maksud rasuah, larangan hadis, pengajaran, sebab berlaku rasuah serta kesan kepada individu, masyarakat dan negara.";
+  }
+}
+function show(id,on){document.getElementById(id).classList.toggle("hidden",!on)}
+function shareWhatsApp(){
+  const text=encodeURIComponent("Saya baru selesai Kuiz “Hindari Rasuah”! Jom cuba kuiz ini bersama murid: "+location.href);
+  window.open("https://wa.me/?text="+text,"_blank");
+}
+function shareTelegram(){
+  const text=encodeURIComponent("Jom cuba Kuiz Interaktif “Hindari Rasuah”!");
+  const url=encodeURIComponent(location.href);
+  window.open("https://t.me/share/url?url="+url+"&text="+text,"_blank");
+}
+
+function makeQR(url){
+  const c=document.getElementById("qrCanvas");
+  if(!c)return;
+  const img=new Image();
+  img.crossOrigin="anonymous";
+  img.onload=()=>{const ctx=c.getContext("2d");ctx.clearRect(0,0,c.width,c.height);ctx.drawImage(img,0,0,c.width,c.height);};
+  img.src="https://api.qrserver.com/v1/create-qr-code/?size=170x170&data="+encodeURIComponent(url);
+}
+</script>
+</body>
+</html>
